@@ -1,7 +1,7 @@
 # monet
 Modular trainer for neural networks based on Torch
 
-## Required packages
+### Required packages
 
 - torch
 - mnist
@@ -11,7 +11,7 @@ Modular trainer for neural networks based on Torch
 - optim
 - hypero
 
-## Usage
+### Usage
 ```sh
 th monet.lua --model 'your_model_class' --dataset 'your_dataset_class'
 ```
