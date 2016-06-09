@@ -6,6 +6,9 @@ cmd = torch.CmdLine()
 cmd:text()
 cmd:text('monet - MOdular NEural Trainer')
 
+-- module params
+cmd:option('--use_hypero', false, 'Use hypero logger')
+
 -- experiment params
 cmd:option('--batch_size', 50, 'batch size')
 cmd:option('--epochs', 1, 'number of epochs')
@@ -77,11 +80,13 @@ require 'View.View_Accuracy'
 local v_acc = View_Accuracy({})
 train:register('Epoch',v_acc)
 
-require 'View.View_Hypero'
-local v_hyp = View_Hypero({})
-train:register('Start',v_hyp)
-train:register('Stop',v_hyp)
-train:register('Epoch',v_hyp)
+if global_args.use_hypero == true then
+  require 'View.View_Hypero'
+  local v_hyp = View_Hypero({})
+  train:register('Start',v_hyp)
+  train:register('Stop',v_hyp)
+  train:register('Epoch',v_hyp)
+end
 
 -- train
 print('\n\nTrain! \n')

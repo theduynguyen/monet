@@ -2,7 +2,6 @@
 
 
 local ds_mnist = require 'Dataset.Dataset_MNIST'
-
 print(ds_mnist.test_data:size())
 
 --[[
