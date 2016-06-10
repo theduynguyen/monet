@@ -12,7 +12,7 @@ function Model_CNNClassifier:create_model()
   
   --[[ classifier ]]--
   local clf = nn.Sequential()
-  clf:add(nn.Linear(self.fc_out, self.args.n_outs))           
+  clf:add(nn.Linear(self.fc_out, self.args.n_classes))           
   clf:add(nn.LogSoftMax())           
   
   --[[ assemble net ]]--

@@ -30,13 +30,14 @@ function View_Accuracy:compute_test_measures(Observable)
   repeat
       local batch = Observable.sampler:get_test_batch()
       local outputs = Observable.model.model:forward(batch.inputs)
-      
-      local _, indices = torch.max(outputs:float(), 2)
-      local guessed_right = indices:long():eq(batch.targets:long()):sum()
-      
-      count = count + guessed_right
-      
       local loss = Observable.model.criterion:forward(outputs, batch.targets)
+            
+      -- classification accuracy
+      --local _, indices = torch.max(outputs:float(), 2)
+      --local guessed_right = indices:long():eq(batch.targets:long()):sum()
+      --count = count + guessed_right
+      
+      -- loss
       current_loss = current_loss + loss
       
       if self.show_progress == true then
@@ -47,7 +48,8 @@ function View_Accuracy:compute_test_measures(Observable)
       end
   until( Observable.sampler:is_full_epoch() == true )
   
-  local acc = count / Observable.sampler.dataset.test_size
+  --local acc = count / Observable.sampler.dataset.test_size
+  local acc = 0
   local loss = current_loss / Observable.sampler.n_test_batches
   
   return loss, acc

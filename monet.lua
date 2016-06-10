@@ -45,7 +45,11 @@ local ds = require('Dataset.'..global_args.dataset)
 local model = require('Model.'..global_args.model)
 model.args.img_size = ds.train_data:size(3)
 model.args.n_channels = ds.train_data:size(2)
-model.args.n_outs = torch.max(ds.train_labels) + 1
+
+-- only for classification: class number
+model.args.n_classes = torch.max(ds.train_labels) + 1
+-- how many outputs 
+model.args.n_outs = ds.n_outs
 
 model:create_model()
 model:create_criterion()

@@ -9,7 +9,7 @@ function Dataset_MNIST:__init(args)
   Dataset_Base:__init(args)
 end
 
-function Dataset_MNIST:load()
+function Dataset_MNIST:load_ds()
   local trainset = mnist.traindataset()
   local testset = mnist.testdataset()
   

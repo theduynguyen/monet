@@ -1,17 +1,17 @@
 require 'Model.Model_CNN'
 
-local Model_Facial = torch.class('Model_Facial','Model_CNN')
+local Model_FacialSimple = torch.class('Model_FacialSimple','Model_CNN')
 
-function Model_Facial:__init(args)
+function Model_FacialSimple:__init(args)
   Model_CNN:__init(args)
 end
 
-function Model_Facial:create_model()
+function Model_FacialSimple:create_model()
   --create CNN and FC layers
   Model_CNN:create_model()
   
-  --[[ 30 coordinate output ]]--
-  self.model:add(nn.Linear(self.fc_out, self.args.n_outs))
+  --[[ regressor ]]--
+  self.model:add(nn.Linear(self.fc_out, 1))
           
   if global_args.cuda then
     cudnn.convert(self.model, cudnn)
@@ -19,7 +19,7 @@ function Model_Facial:create_model()
   end
 end  
 
-function Model_Facial:create_criterion()
+function Model_FacialSimple:create_criterion()
   local crit = nn.MSECriterion()
   
   if global_args.cuda then
@@ -34,5 +34,5 @@ model_args.n_channels = 1
 model_args.img_size = 96
 model_args.n_outs = 1
 
-local m = Model_Facial.new(model_args)
+local m = Model_FacialSimple.new(model_args)
 return m

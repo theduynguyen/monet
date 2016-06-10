@@ -55,7 +55,7 @@ function Sampler_Shuffle:get_data_batch(batch_id,idx,
   local img_size = data:size(3)
   
   local batch_data = torch.Tensor(batch_size,n_channels,img_size,img_size)
-  local batch_labels = torch.Tensor(batch_size,1)
+  local batch_labels = torch.Tensor(batch_size,self.dataset.n_outs)
   
   -- copy dataset data to allocated space
   for i=1,batch_size do

@@ -12,7 +12,7 @@ function Dataset_I40:__init(args)
   self.hdf5_path = args
 end
 
-function Dataset_I40:load()
+function Dataset_I40:load_ds()
   local file_found = io.open(self.hdf5_path,'r')
   
   if file_found == nil then
